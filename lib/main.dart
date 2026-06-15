@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'pages/me_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(const ThriftifyApp());
 }
 
@@ -85,7 +95,7 @@ class HomePage extends StatelessWidget {
 
             // ── PART 1: Hero ──────────────────────────────────────────
             SizedBox(
-              height: screenHeight,
+  height: screenHeight - MediaQuery.of(context).padding.top,
               child: Stack(
                 fit: StackFit.expand,
                 children: [
